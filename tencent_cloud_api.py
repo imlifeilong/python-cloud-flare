@@ -201,7 +201,6 @@ class EIP():
         else:
             print('实例配置文件不存在')
 
-
     def start(self, region, version):
         instances = self.get_instances()
         if instances:
@@ -222,7 +221,8 @@ class EIP():
                 
                 if ins in instances_ids:
                     old_eip = instances_ids[ins][0]
-                    print('Instance: %s, Old_eip: %s, New_eip: %s' % (ins, instances_ids[ins][1], new_address))
+                    with open('result.txt', 'w') as f:
+                        print('Instance: %s, Old_eip: %s, New_eip: %s' % (ins, instances_ids[ins][1], new_address), file=f)
                     # 解绑定旧的 EIP
                     resp = self.disassociate(region, version, old_eip)
                     if not resp:
